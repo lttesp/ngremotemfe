@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:browser",
           "options": {
             "outputPath": "dist/remote",
             "index": "src/index.html",
@@ -30,7 +30,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "extraWebpackConfig": "webpack-config.js"
           },
           "configurations": {
             "production": {
@@ -63,13 +64,16 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "options": {
-            "browserTarget": "remote:build"
+            "browserTarget": "remote:build",
+            "extraWebpackConfig": "webpack-config.js",
+            "port": 4300
           },
           "configurations": {
             "production": {
-              "browserTarget": "remote:build:production"
+              "browserTarget": "remote:build:production",
+              "extraWebpackConfig": "webpack-prod-config.js"
             }
           }
         },
@@ -124,5 +128,9 @@
       }
     }
   },
-  "defaultProject": "remote"
+  "defaultProject": "remote",
+  "cli": {
+    "packageManager": "yarn",
+    "analytics": false
+  }
 }
